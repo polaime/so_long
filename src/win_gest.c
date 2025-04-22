@@ -10,9 +10,9 @@ void	win_gest(void)
 
 	mlx = mlx_init();
 	mlx_win = mlx_new_window(mlx, 800, 600, "Hello world!");
-	img = mlx_xpm_file_to_image(mlx, "sprites/player.xpm", &img_width, &img_height);
+	img = mlx_xpm_file_to_image(mlx, "sprites/player_front.xpm", &img_width, &img_height);
 	if (!img)
-		return (1);
+		return;
 	mlx_put_image_to_window(mlx, mlx_win, img, 100, 100);
 	mlx_loop(mlx);
 }
