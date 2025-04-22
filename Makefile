@@ -19,37 +19,45 @@
 ## ARGUMENTS
 
 NAME		= so_long
-CFLAGS		= -g3 -Wall -Werror -Wextra
+CFLAGS		= -g3 -Wall -Werror -Wextra -I$(MLX_DIR) -Iget_next_line -Ilibft
+LDFLAGS		= -Lminilibx-linux -lmlx -lXext -lX11 -lm
 CC			= cc
 
 #################################
 ## SOURCES
 
-SRC_FILES 	=	so_long.c\
-				
-
-OBJ_FILES	= $(SRC_FILES:.c=.o)
+SRC_DIRS		=	get_next_line libft src
+BUILD_DIR	=	build
+MLX_DIR 	=	minilibx-linux
+SRCS = $(foreach dir, $(SRC_DIRS), $(wildcard $(dir)/*.c))
+OBJS = $(patsubst %.c, $(BUILD_DIR)/%.o, $(SRCS))
+NAME = so_long
 
 #################################
 ## RULES
-all: ${NAME}
+all: $(MLX_DIR)/libmlx.a ${NAME}
 
-${NAME}: ${OBJ_FILES} 
+${NAME}: ${OBJS} 
 	@echo "\033[32mCompilation en cours...\033[0m"
-	@${CC} ${CFLAGS} ${OBJ_FILES} -o ${NAME} > /dev/null 2>&1
-	@sleep 1
+	@${CC} ${CFLAGS} ${OBJS} -o $@ $(LDFLAGS) > /dev/null 2>&1
 	@echo "\033[32mCompilation terminee\033[0m"
 
-%.o: %.c
-	@${CC} ${CFLAGS} -c $< -o $@ > /dev/null 2>&1
+$(BUILD_DIR)/%.o: %.c
+	@mkdir -p $(dir $@)
+	@${CC} ${CFLAGS} -c $< -o $@
 
-clean: presentation
-	@rm -f ${OBJ_FILES}
-	@echo "\033[31mFichiers objets supprimés.\033[0m"
+$(MLX_DIR)/libmlx.a:
+	@$(MAKE) -C $(MLX_DIR)
+
+clean:
+	@rm -rf ${BUILD_DIR}
+	@$(MAKE) -C $(MLX_DIR) clean
+	@echo "\033[31mFichiers et dossier objets supprimés.\033[0m"
 
 fclean: clean
 	@rm -f ${NAME}
 	@echo "\033[31mExecutable supprimé.\033[0m"
 
 re: fclean all
-.PHONY: all clean fclean re presentation
+
+.PHONY: all clean fclean re 
