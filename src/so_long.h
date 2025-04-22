@@ -13,8 +13,8 @@ typedef struct s_data {
 	int		endian;
 }				t_data;
 
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
-void	win_gest(void);
-int		is_okay_to_open(char **argv);
-int		main(int argc, char **argv);
+void		my_mlx_pixel_put(t_data *data, int x, int y, int color);
+void		win_gest(void);
+char		**is_okay_to_open(int fd);
+int			main(int argc, char **argv);
 #endif
