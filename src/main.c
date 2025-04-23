@@ -13,18 +13,19 @@ int	main(int argc, char **argv)
 		return (0);
 	if (argc == 2)
 	{
-		tab = is_okay_to_open(fd);
-		if (tab)
-		{	
-			ft_putstr_fd("\nmap ok ᕕ(╭ರ╭ ͟ʖ╮•́)⊃¤=(————-\n", 1);
-			win_gest();
-		}
-		else
-		{
-			while (tab == NULL)
-				free(tab[i++]);
-		}
+		use_for_main(fd);
 	}
 	close(fd);
 	return (0);
+}
+void use_for_main(int fd)
+{
+	char		**tab;
+
+	tab = is_okay_to_open(fd);
+	if (tab && is_okay_to_open_two(tab) != 0)
+	{	
+		ft_putstr_fd("\nmap ok ᕕ(╭ರ╭ ͟ʖ╮•́)⊃¤=(————-\n", 1);
+		win_gest();
+	}
 }
