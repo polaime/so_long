@@ -10,7 +10,7 @@ void	win_gest(void)
 
 	mlx = mlx_init();
 	mlx_win = mlx_new_window(mlx, 800, 600, "Hello world!");
-	img = mlx_xpm_file_to_image(mlx, "sprites/perso/player_front.xpm",
+	img = mlx_xpm_file_to_image(mlx, "sprites/texture/Grass.xpm",
 			&img_width, &img_height);
 	if (!img)
 		return ;

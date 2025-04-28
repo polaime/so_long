@@ -13,6 +13,11 @@ typedef struct s_data {
 	int		endian;
 }				t_data;
 
+typedef struct s_check {
+	int	collectibles_found;
+	int	exit_found;
+}				t_check;
+
 void		my_mlx_pixel_put(t_data *data, int x, int y, int color);
 void		win_gest(void);
 char		**is_okay_to_open(int fd);
@@ -20,6 +25,10 @@ int			main(int argc, char **argv);
 int			help_to_know(int item, int player, int door);
 int			is_okay_to_open_two(char **tab);
 void		use_for_main(int fd);
+int			other_letter(char **tab);
+char	**tab_dupplicate(char **tab, int fd);
+
+
 
 
 

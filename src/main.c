@@ -23,7 +23,7 @@ void use_for_main(int fd)
 	char		**tab;
 
 	tab = is_okay_to_open(fd);
-	if (tab && is_okay_to_open_two(tab) != 0)
+	if (tab && is_okay_to_open_two(tab) != 0 && other_letter(tab) != 0)
 	{	
 		ft_putstr_fd("\nmap ok ᕕ(╭ರ╭ ͟ʖ╮•́)⊃¤=(————-\n", 1);
 		win_gest();
