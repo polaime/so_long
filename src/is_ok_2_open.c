@@ -8,11 +8,11 @@ char	**is_okay_to_open(int fd)
 
 	line = NULL;
 	i = 0;
-	tab = malloc(sizeof(char *) * 100000);
+	tab = NULL;
 	line = get_next_line(fd);
 	while (line != NULL)
 	{
-		tab[i] = line;
+		tab = add_to_tab(tab, line);
 		if (i > 0)
 		{
 			if (ft_strlen(tab[i]) != ft_strlen(tab[i - 1]))
@@ -87,23 +87,59 @@ int	other_letter(char **tab)
 	else
 		return (1);
 }
-
-int	flood_fill(int x, int y, char **tab_dup, t_check *check)
+/*
+void	flood_fill(int x, int y, char **tab_dup, t_check *check)
 {
-	while (tab_dup[x])
+	x = 0;
+	y = 0;
+	while (tab_dup[x] != NULL)
 	{
 		y = 0;
 		while (tab_dup[x][y] != 'P' && tab_dup[x][y] != '\0')
 			y++;
+		if (tab_dup[x][y] == 'P')
+			break ;
 		x++;
 	}
-	if (tab_dup[x][y] == '1' || tab_dup[x][y] == 'X')
+	printf("x = %d y = %d\n",x,y);
+	if (tab_dup[x][y] == '\0')
 		return ;
 	if (tab_dup[x][y] == 'C')
 		check -> collectibles_found++;
 	if (tab_dup[x][y] == 'E')
 		check -> exit_found = 1;
-	[y][x] = 'V';
-
+	if (tab_dup[y][x] == '1' || tab_dup[y][x] == 'F')
+		return ;
+	tab_dup[y][x] = 'F';
+	flood_fill(x + 1, y, tab_dup, check);
+	flood_fill(x - 1, y, tab_dup, check);
+	flood_fill(x, y + 1, tab_dup, check);
+	flood_fill(x, y - 1, tab_dup, check);
 }
+*/
 
+
+
+void	flood_fill(int x, int y, char **tab_dup, t_check *check)
+{
+	x = 0;
+	y = 0;
+	while (tab_dup[x] != NULL)
+	{
+		y = 0;
+		while (tab_dup[x][y] != 'P' && tab_dup[x][y] != '\0')
+			y++;
+		// if (tab_dup[x][y] == 'P')
+		// 	fill_it(tab_dup, x, y);
+		x++;
+	}
+	printf("x = %d y = %d\n",x,y);
+	if (tab_dup[x][y] == '\0')
+	if (tab_dup[x][y] == 'C')
+		check -> collectibles_found++;
+	if (tab_dup[x][y] == 'E')
+		check -> exit_found = 1;
+	if (tab_dup[y][x] == '1' || tab_dup[y][x] == 'F')
+
+	tab_dup[y][x] = 'F';
+}

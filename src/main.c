@@ -13,19 +13,46 @@ int	main(int argc, char **argv)
 		return (0);
 	if (argc == 2)
 	{
-		use_for_main(fd);
+		i = ft_strlen(argv[1]);
+		if (i <= 4)
+			return (close (fd), 0);
+		if (argv[1][i - 4] != '.' && argv[1][i - 3] != 'b' &&
+					argv[1][i - 2] != 'e' && argv[1][i - 1] != 'r')
+		{
+			ft_putstr_fd("wrong map ext (╥﹏╥)\n", 1);
+			return (close (fd), 0);
+		}
+		else
+			use_for_main(fd);
 	}
 	close(fd);
 	return (0);
 }
-void use_for_main(int fd)
+
+void	use_for_main(int fd)
 {
 	char		**tab;
+	//char		**tab_dup;
+	int			x;
+	int			y;
+	int 		i;
+	int			j;
+	// t_check		check;
 
+	i = 0;
+	x = 0;
+	y = 0;
 	tab = is_okay_to_open(fd);
+	j = ft_strlen(tab[i]);
+	while (tab[i] != NULL)
+		i++;
+	printf("%c\n", tab[1][2]);
+	//tab_dup = tab_dupplicate(tab);
+	// flood_fill(x, y, tab, &check);
+	// if (check . exit_found == 1)
 	if (tab && is_okay_to_open_two(tab) != 0 && other_letter(tab) != 0)
-	{	
+	{
 		ft_putstr_fd("\nmap ok ᕕ(╭ರ╭ ͟ʖ╮•́)⊃¤=(————-\n", 1);
-		win_gest();
+		win_gest(i, j - 1, tab);
 	}
 }

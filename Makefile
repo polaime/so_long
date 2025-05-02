@@ -39,7 +39,7 @@ all: $(MLX_DIR)/libmlx.a ${NAME}
 
 ${NAME}: ${OBJS} 
 	@echo "\033[32mCompilation en cours...\033[0m"
-	@${CC} ${CFLAGS} ${OBJS} -o $@ $(LDFLAGS) 
+	@${CC} ${CFLAGS} ${OBJS} -o $@ $(LDFLAGS)
 	@echo "\033[32mCompilation terminee\033[0m"
 
 $(BUILD_DIR)/%.o: %.c
