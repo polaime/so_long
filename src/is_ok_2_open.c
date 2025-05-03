@@ -13,7 +13,7 @@ char	**is_okay_to_open(int fd)
 	while (line != NULL)
 	{
 		tab = add_to_tab(tab, line);
-		if (i > 0)
+		if (i > 1)
 		{
 			if (ft_strlen(tab[i]) != ft_strlen(tab[i - 1]))
 				return (ft_putstr_fd("\ncant open this map (ÒДÓױ)\n", 1), NULL);
@@ -58,7 +58,8 @@ int	help_to_know(int item, int player, int door)
 	if (item < 1 || player != 1 || door != 1)
 		return (ft_putstr_fd("\ncant open this map (ÒДÓױ)0\n\n", 1), 0);
 	else
-		return (1);
+		return (item);
+	
 }
 
 int	other_letter(char **tab)
@@ -87,59 +88,27 @@ int	other_letter(char **tab)
 	else
 		return (1);
 }
-/*
+
 void	flood_fill(int x, int y, char **tab_dup, t_check *check)
 {
-	x = 0;
-	y = 0;
-	while (tab_dup[x] != NULL)
-	{
-		y = 0;
-		while (tab_dup[x][y] != 'P' && tab_dup[x][y] != '\0')
-			y++;
-		if (tab_dup[x][y] == 'P')
-			break ;
-		x++;
-	}
-	printf("x = %d y = %d\n",x,y);
-	if (tab_dup[x][y] == '\0')
+	int		width;
+	int		height;
+
+	width = ft_strlen(tab_dup[0]);
+	height = 0;
+	while (tab_dup[height])
+		height++;
+	if (x < 0 || y < 0 || x >= height || y >= width)
+		return ;
+	if (tab_dup[x][y] == '1' || tab_dup[x][y] == 'F')
 		return ;
 	if (tab_dup[x][y] == 'C')
-		check -> collectibles_found++;
-	if (tab_dup[x][y] == 'E')
-		check -> exit_found = 1;
-	if (tab_dup[y][x] == '1' || tab_dup[y][x] == 'F')
-		return ;
-	tab_dup[y][x] = 'F';
+		check->collectibles_found++;
+	else if (tab_dup[x][y] == 'E')
+		check->exit_found = 1;
+	tab_dup[x][y] = 'F';
 	flood_fill(x + 1, y, tab_dup, check);
 	flood_fill(x - 1, y, tab_dup, check);
 	flood_fill(x, y + 1, tab_dup, check);
 	flood_fill(x, y - 1, tab_dup, check);
-}
-*/
-
-
-
-void	flood_fill(int x, int y, char **tab_dup, t_check *check)
-{
-	x = 0;
-	y = 0;
-	while (tab_dup[x] != NULL)
-	{
-		y = 0;
-		while (tab_dup[x][y] != 'P' && tab_dup[x][y] != '\0')
-			y++;
-		// if (tab_dup[x][y] == 'P')
-		// 	fill_it(tab_dup, x, y);
-		x++;
-	}
-	printf("x = %d y = %d\n",x,y);
-	if (tab_dup[x][y] == '\0')
-	if (tab_dup[x][y] == 'C')
-		check -> collectibles_found++;
-	if (tab_dup[x][y] == 'E')
-		check -> exit_found = 1;
-	if (tab_dup[y][x] == '1' || tab_dup[y][x] == 'F')
-
-	tab_dup[y][x] = 'F';
 }

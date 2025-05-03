@@ -2,14 +2,19 @@
 
 void	win_gest(int x, int y, char **tab)
 {
-	void		*mlx;
-	void		*mlx_win;
+	t_game		*game;
 
-	mlx = mlx_init();
-	mlx_win = mlx_new_window(mlx, y * 32, x * 32, "SO_LONG");
-	txtr_gest(tab, mlx, mlx_win);
-	mlx_key_hook(mlx_win, handle_key, mlx);
-	mlx_loop(mlx);
+	game = malloc(sizeof(t_game));
+	if (!game)
+		return ;
+	game->map = tab;
+	game->mlx = mlx_init();
+	game->mlx_win = mlx_new_window(game->mlx, y * 32, x * 32, "SO_LONG");
+	find_player_game(game);
+	txtr_gest(game);
+	mlx_key_hook(game->mlx_win, handle_key, game);
+	mlx_loop(game->mlx);
+	free (game);
 }
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
@@ -20,20 +25,24 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-void	txtr_gest(char **tab, void *mlx, void *mlx_win)
+void	txtr_gest(t_game *game)
 {
 	t_textures	tex;
 	int			w;
 	int			h;
 
-	tex.floor = mlx_xpm_file_to_image(mlx, "sprites/texture/floor.xpm", &w, &h);
-	tex.wall = mlx_xpm_file_to_image(mlx, "sprites/texture/wall.xpm", &w, &h);
-	tex.player = mlx_xpm_file_to_image(mlx, "sprites/perso/front.xpm", &w, &h);
-	tex.coin = mlx_xpm_file_to_image(mlx,
+	tex.flor = mlx_xpm_file_to_image
+		(game->mlx, "sprites/texture/floor.xpm", &w, &h);
+	tex.wall = mlx_xpm_file_to_image
+		(game->mlx, "sprites/texture/wall.xpm", &w, &h);
+	tex.plyr = mlx_xpm_file_to_image
+		(game->mlx, "sprites/perso/front.xpm", &w, &h);
+	tex.coin = mlx_xpm_file_to_image(game->mlx,
 			"sprites/texture/coin-bag.xpm", &w, &h);
-	tex.exit = mlx_xpm_file_to_image(mlx,
+	tex.exit = mlx_xpm_file_to_image(game->mlx,
 			"sprites/texture/exit-closed.xpm", &w, &h);
-	txtr_gest2 (tex, mlx, mlx_win, tab);
+	game->textures = tex;
+	txtr_gest2 (tex, game->mlx, game->mlx_win, game->map);
 }
 
 void	txtr_gest2(t_textures tex, void *mlx, void *mlx_win, char **tab)
@@ -50,11 +59,9 @@ void	txtr_gest2(t_textures tex, void *mlx, void *mlx_win, char **tab)
 			if (tab[i][j] == '1')
 				mlx_put_image_to_window(mlx, mlx_win, tex.wall, j * 32, i * 32);
 			else if (tab[i][j] == '0')
-				mlx_put_image_to_window(mlx, mlx_win,
-					tex.floor, j * 32, i * 32);
+				mlx_put_image_to_window(mlx, mlx_win, tex.flor, j * 32, i * 32);
 			else if (tab[i][j] == 'P')
-				mlx_put_image_to_window(mlx, mlx_win,
-					tex.player, j * 32, i * 32);
+				mlx_put_image_to_window(mlx, mlx_win, tex.plyr, j * 32, i * 32);
 			else if (tab[i][j] == 'C')
 				mlx_put_image_to_window(mlx, mlx_win, tex.coin, j * 32, i * 32);
 			else if (tab[i][j] == 'E')
@@ -65,20 +72,3 @@ void	txtr_gest2(t_textures tex, void *mlx, void *mlx_win, char **tab)
 	}
 }
 
-// void	ft_moove(t_textures tex, void *mlx, void *mlx_win, char **tab)
-// {
-// 	int		x;
-// 	int		y;
-
-// 	x = 0;
-// 	y = 0;
-// 	while (tab[x] != NULL)
-// 	{
-// 		y = 0;
-// 		while (tab[x][y] != 'P' && tab[x][y] != '\0')
-// 			y++;
-// 		if (tab[x][y] == 'P')
-// 			break ;
-// 		x++;
-// 	}
-// }

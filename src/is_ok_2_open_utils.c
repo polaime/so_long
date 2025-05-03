@@ -24,7 +24,7 @@ char	**tab_dupplicate(char **tab)
 	return (tab_copy);
 }
 
-void add_to_tab_utils(char **new_tab,char **old_tab, char *str,int len_old)
+void	add_to_tab_utils(char **new_tab, char **old_tab, char *str, int len_old)
 {
 	int	i;
 
@@ -62,4 +62,67 @@ char	**add_to_tab(char **tab, char *str)
 	new_tab[len + 1] = NULL;
 
 	return (new_tab);
+}
+
+int	is_okay_to_open_wall(char **tab)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (tab[0][j])
+	{
+		if (tab[0][j] != '1')
+			return (1);
+		j++;
+	}
+	while (tab[i] != NULL)
+	{
+		if (tab[i][0] != '1')
+			return (1);
+		i++;
+	}
+	return (is_okay_to_open_wall_2(tab));
+}
+
+int	is_okay_to_open_wall_2(char **tab)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (tab[i] != NULL)
+		i++;
+	i--;
+	j = 0;
+	while (tab[i][j])
+	{
+		if (tab[i][j] != '1')
+			return (1);
+		j++;
+	}
+	j = ft_strlen(tab[0]) - 1;
+	while (i >= 0)
+	{
+		if (tab[i][j] != '1')
+			return (1);
+		i--;
+	}
+	return (0);
+}
+int	is_rectangular(char **tab)
+{
+	int	i;
+	int	len;
+
+	i = 1;
+	len = ft_strlen(tab[0]);
+	while (tab[i])
+	{
+		if ((int)ft_strlen(tab[i]) != len)
+			return (0);
+		i++;
+	}
+	return (1);
 }

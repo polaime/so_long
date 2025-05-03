@@ -6,9 +6,9 @@
 # include "mlx.h"
 
 typedef struct s_textures {
-	void	*floor;
+	void	*flor;
 	void	*wall;
-	void	*player;
+	void	*plyr;
 	void	*coin;
 	void	*exit;
 }				t_textures;
@@ -27,6 +27,8 @@ typedef struct s_check {
 }				t_check;
 
 typedef struct s_game {
+	void		*mlx;
+	void		*mlx_win;
 	char		**map;
 	int			player_x;
 	int			player_y;
@@ -45,8 +47,17 @@ int			other_letter(char **tab);
 char		**tab_dupplicate(char **tab);
 void		flood_fill(int x, int y, char **tab_dup, t_check *check);
 char		**add_to_tab(char **tab, char *str);
-void		txtr_gest(char **tab, void *mlx, void *mlx_win);
+void		txtr_gest(t_game *game);
 void		txtr_gest2(t_textures tex, void *mlx, void *mlx_win, char **tab);
-int			handle_key(int keycode, void *mlx, void *mlx_win, t_game game);
+int			handle_key(int keycode, t_game *game);
+int			find_player_x(char **tab_dup);
+int			find_player_y(char **tab_dup);
+void		see_error(t_check check, char **tab);
+int			is_okay_to_open_wall(char **tab);
+int			is_okay_to_open_wall_2(char **tab);
+int			is_rectangular(char **tab);
+void		find_player_game(t_game *game);
+
+
 
 #endif

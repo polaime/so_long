@@ -32,27 +32,38 @@ int	main(int argc, char **argv)
 void	use_for_main(int fd)
 {
 	char		**tab;
-	//char		**tab_dup;
-	int			x;
-	int			y;
-	int 		i;
+	char		**tab_dup;
+	int			i;
 	int			j;
-	// t_check		check;
+	t_check		check;
 
 	i = 0;
-	x = 0;
-	y = 0;
+	check.exit_found = 0;
 	tab = is_okay_to_open(fd);
 	j = ft_strlen(tab[i]);
 	while (tab[i] != NULL)
 		i++;
-	printf("%c\n", tab[1][2]);
-	//tab_dup = tab_dupplicate(tab);
-	// flood_fill(x, y, tab, &check);
-	// if (check . exit_found == 1)
-	if (tab && is_okay_to_open_two(tab) != 0 && other_letter(tab) != 0)
+	tab_dup = tab_dupplicate(tab);
+	flood_fill(find_player_x(tab), find_player_y(tab), tab_dup, &check);
+	if (check.exit_found == 1
+		&& check.collectibles_found == is_okay_to_open_two(tab))
 	{
-		ft_putstr_fd("\nmap ok ᕕ(╭ರ╭ ͟ʖ╮•́)⊃¤=(————-\n", 1);
-		win_gest(i, j - 1, tab);
+		printf("%i\n", is_rectangular(tab));
+		if (tab && is_okay_to_open_two(tab) != 0 && other_letter(tab) != 0)
+		{
+			{
+				ft_putstr_fd("\nmap ok ᕕ(╭ರ╭ ͟ʖ╮•́)⊃¤=(————-\n", 1);
+				win_gest(i, j - 1, tab);
+			}
+		}
 	}
+}
+void	see_error(t_check check, char **tab)
+{
+	int		collectible;
+
+	collectible = is_okay_to_open_two(tab);
+
+	if (check.exit_found != 1 || check.collectibles_found != collectible)
+		ft_putstr_fd("Noooo cant play on this map ヽ(｀Д´)ﾉ", 1);
 }
