@@ -51,6 +51,7 @@ $(MLX_DIR)/libmlx.a:
 
 clean:
 	@rm -rf ${BUILD_DIR}
+	@$(MAKE) -C $(MLX_DIR) clean
 	@echo "\033[31mFichiers et dossier objets supprimés.\033[0m"
 
 fclean: clean

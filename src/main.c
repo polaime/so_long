@@ -48,7 +48,6 @@ void	use_for_main(int fd)
 	if (check.exit_found == 1
 		&& check.collectibles_found == is_okay_to_open_two(tab))
 	{
-		printf("%i\n", is_rectangular(tab));
 		if (tab && is_okay_to_open_two(tab) != 0 && other_letter(tab) != 0)
 		{
 			{
@@ -58,6 +57,7 @@ void	use_for_main(int fd)
 		}
 	}
 }
+
 void	see_error(t_check check, char **tab)
 {
 	int		collectible;

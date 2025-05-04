@@ -33,6 +33,10 @@ typedef struct s_game {
 	int			player_x;
 	int			player_y;
 	int			tile_size;
+	int			exit_x;
+	int			exit_y;
+	int			player_on_exit;
+	int			on_collectible;
 	t_textures	textures;
 }	t_game;
 
@@ -57,6 +61,9 @@ int			is_okay_to_open_wall(char **tab);
 int			is_okay_to_open_wall_2(char **tab);
 int			is_rectangular(char **tab);
 void		find_player_game(t_game *game);
+void		handle_key_utils(t_game *game, int x, int y);
+void		player_on_exit(t_game *game, int y, int x);
+
 
 
 

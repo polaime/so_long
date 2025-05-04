@@ -56,3 +56,24 @@ void	find_player_game(t_game *game)
 		row++;
 	}
 }
+
+void	find_exit_game(t_game *game)
+{
+	int		row;
+	int		col;
+
+	row = 0;
+	while (game->map[row] != NULL)
+	{
+		col = 0;
+		while (game->map[row][col] != 'E' && game->map[row][col] != '\0')
+			col++;
+		if (game->map[row][col] == 'E')
+		{
+			game->player_y = row;
+			game->player_x = col;
+			return ;
+		}
+		row++;
+	}
+}
