@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   is_ok_2_open.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pthibaud <pthibaud@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/05 14:20:10 by pthibaud          #+#    #+#             */
+/*   Updated: 2025/05/05 15:11:17 by pthibaud         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
 char	**is_okay_to_open(int fd)
 {
-	char		*line;
-	int			i;
-	char		**tab;
+	char	*line;
+	int		i;
+	char	**tab;
 
 	line = NULL;
 	i = 0;
@@ -13,11 +25,8 @@ char	**is_okay_to_open(int fd)
 	while (line != NULL)
 	{
 		tab = add_to_tab(tab, line);
-		if (i > 1)
-		{
-			if (ft_strlen(tab[i]) != ft_strlen(tab[i - 1]))
-				return (ft_putstr_fd("\ncant open this map (ÒДÓױ)\n", 1), NULL);
-		}
+		if (!tab || !*tab)
+			return (NULL);
 		i++;
 		line = get_next_line(fd);
 	}
@@ -26,11 +35,11 @@ char	**is_okay_to_open(int fd)
 
 int	is_okay_to_open_two(char **tab)
 {
-	int		i;
-	int		j;
-	int		item_is;
-	int		player_is;
-	int		door_is;
+	int	i;
+	int	j;
+	int	item_is;
+	int	player_is;
+	int	door_is;
 
 	i = 0;
 	item_is = 0;
@@ -56,17 +65,16 @@ int	is_okay_to_open_two(char **tab)
 int	help_to_know(int item, int player, int door)
 {
 	if (item < 1 || player != 1 || door != 1)
-		return (ft_putstr_fd("\ncant open this map (ÒДÓױ)0\n\n", 1), 0);
+		return (0);
 	else
 		return (item);
-	
 }
 
 int	other_letter(char **tab)
 {
-	int		i;
-	int		j;
-	int		other;
+	int	i;
+	int	j;
+	int	other;
 
 	other = 0;
 	i = 0;
@@ -76,9 +84,9 @@ int	other_letter(char **tab)
 		j = 0;
 		while (tab[i][j++] != '\0')
 		{
-			if (tab[i][j] != 'E' && tab[i][j] != 'P' && tab[i][j] != 'C' &&
-					tab[i][j] != '1' && tab[i][j] != '0' && tab[i][j] != '\n'
-					&& tab[i][j] != '\0')
+			if (tab[i][j] != 'E' && tab[i][j] != 'P' && tab[i][j] != 'C'
+				&& tab[i][j] != '1' && tab[i][j] != '0' && tab[i][j] != '\n'
+				&& tab[i][j] != '\0')
 				other++;
 		}
 		i++;
@@ -91,8 +99,8 @@ int	other_letter(char **tab)
 
 void	flood_fill(int x, int y, char **tab_dup, t_check *check)
 {
-	int		width;
-	int		height;
+	int	width;
+	int	height;
 
 	width = ft_strlen(tab_dup[0]);
 	height = 0;

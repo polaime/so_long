@@ -19,14 +19,14 @@
 ## ARGUMENTS
 
 NAME		= so_long
-CFLAGS		= -g3 -Wall -Werror -Wextra -I$(MLX_DIR) -Iget_next_line -Ilibft
+CFLAGS		= -g3 -Wall -Werror -Wextra -I$(MLX_DIR) -Iget_next_line -Ilibft -Ift_printf
 LDFLAGS		= -Lminilibx-linux -lmlx -lXext -lX11 -lm
 CC			= cc
 
 #################################
 ## SOURCES
 
-SRC_DIRS		=	get_next_line libft src
+SRC_DIRS		=	get_next_line libft src ft_printf
 BUILD_DIR	=	build
 MLX_DIR 	=	minilibx-linux
 SRCS = $(foreach dir, $(SRC_DIRS), $(wildcard $(dir)/*.c))

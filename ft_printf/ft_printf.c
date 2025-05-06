@@ -6,7 +6,7 @@
 /*   By: pthibaud <pthibaud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 15:46:48 by pthibaud          #+#    #+#             */
-/*   Updated: 2025/01/15 16:46:53 by pthibaud         ###   ########.fr       */
+/*   Updated: 2025/05/05 13:56:00 by pthibaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	checkbar(const char str, va_list ap)
 	if (str == 'c')
 		j = ft_putchar((char)va_arg(ap, int));
 	if (str == 's')
-		j = ft_putstr(va_arg(ap, char *), 0);
+		j = ft_putustr(va_arg(ap, char *), 0);
 	if (str == 'p')
 	{
 		k = va_arg(ap, unsigned long long);

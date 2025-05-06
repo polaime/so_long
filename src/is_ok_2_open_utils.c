@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   is_ok_2_open_utils.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pthibaud <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/05 14:20:18 by pthibaud          #+#    #+#             */
+/*   Updated: 2025/05/05 14:20:20 by pthibaud         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
 char	**tab_dupplicate(char **tab)
@@ -12,7 +24,7 @@ char	**tab_dupplicate(char **tab)
 	{
 		tab_size++;
 	}
-	tab_copy = malloc(sizeof(char *) * (tab_size + 1));
+	tab_copy = ft_calloc(sizeof(char *), (tab_size + 1));
 	if (!tab_copy)
 		return (NULL);
 	while (i < tab_size)
@@ -38,8 +50,6 @@ void	add_to_tab_utils(char **new_tab, char **old_tab, char *str, int len_old)
 		}
 	}
 	new_tab[i] = str;
-
-
 }
 
 char	**add_to_tab(char **tab, char *str)
@@ -57,10 +67,9 @@ char	**add_to_tab(char **tab, char *str)
 	if (!new_tab)
 		return (NULL);
 	add_to_tab_utils(new_tab, tab, str, len);
-	if (len != 0)
+	if (tab)
 		free(tab);
 	new_tab[len + 1] = NULL;
-
 	return (new_tab);
 }
 
@@ -71,19 +80,19 @@ int	is_okay_to_open_wall(char **tab)
 
 	i = 0;
 	j = 0;
-	while (tab[0][j])
+	while (tab[0][j] != '\n' && tab[0][j])
 	{
-		if (tab[0][j] != '1')
+		if (tab[0][j] != '1' && tab[0][j] != '\n')
 			return (1);
 		j++;
 	}
 	while (tab[i] != NULL)
 	{
-		if (tab[i][0] != '1')
+		if (tab[i][0] != '1' || tab[i][j - 1] != '1')
 			return (1);
 		i++;
 	}
-	return (is_okay_to_open_wall_2(tab));
+	return (0);
 }
 
 int	is_okay_to_open_wall_2(char **tab)
@@ -98,31 +107,16 @@ int	is_okay_to_open_wall_2(char **tab)
 	j = 0;
 	while (tab[i][j])
 	{
-		if (tab[i][j] != '1')
+		if (tab[i][j] != '1' && tab[i][j] != '\n' && tab[i][j] != '\0')
 			return (1);
 		j++;
 	}
 	j = ft_strlen(tab[0]) - 1;
-	while (i >= 0)
+	while (i > 0)
 	{
-		if (tab[i][j] != '1')
+		if (tab[i][j] != '1' && tab[i][j] != '\n')
 			return (1);
 		i--;
 	}
 	return (0);
-}
-int	is_rectangular(char **tab)
-{
-	int	i;
-	int	len;
-
-	i = 1;
-	len = ft_strlen(tab[0]);
-	while (tab[i])
-	{
-		if ((int)ft_strlen(tab[i]) != len)
-			return (0);
-		i++;
-	}
-	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: pthibaud <pthibaud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 14:58:10 by pthibaud          #+#    #+#             */
-/*   Updated: 2025/01/15 16:22:44 by pthibaud         ###   ########.fr       */
+/*   Updated: 2025/05/05 13:56:08 by pthibaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	ft_putptr(unsigned long long nb)
 	return (i);
 }
 
-int	ft_putstr(char *s, int i)
+int	ft_putustr(char *s, int i)
 {
 	if (!s)
 	{
